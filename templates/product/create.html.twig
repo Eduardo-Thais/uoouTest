@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/visual.css') }}">
+{% endblock %}
+
+{% block body %}
+<header class="main-header">
+    <div class="container header-content">
+        <h1>Loja Uoou</h1>
+        <a href="/" class="btn-back">← Voltar</a>
+    </div>
+</header>
+<main class="container">
+    <div class="form-card">
+        <h2>Cadastrar Novo Produto</h2>
+        
+        {# Nota: Certifique-se de que o enctype está correto para upload de imagem #}
+        <form action="/product/save" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="name">Nome do Produto</label>
+                <input type="text" id="name" name="name" placeholder="Ex: Sapato Chique de Couro" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descrição do Produto</label>
+                <textarea id="description" name="description" rows="4" placeholder="Detalhes sobre o material, cor, etc." required></textarea>
+            </div>
+
+            {# Usamos uma sub-grid para colocar Preço e Estoque na mesma linha #}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="price">Preço (R$)</label>
+                    <input type="number" id="price" name="price" step="0.01" placeholder="Ex: 199.90" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="estock">Estoque Mínimo</label>
+                    <input type="number" id="estock" name="estock" placeholder="Ex: 10" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Imagem do Produto</label>
+                <input type="file" id="image" name="image" class="file-input" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Salvar Produto e Sincronizar</button>
+            </div>
+        </form>
+    </div>
+</main> 
+{% endblock %}

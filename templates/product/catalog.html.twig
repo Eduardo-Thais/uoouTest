@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/visual.css') }}">
+{% endblock %}
+
+{% block body %}
+<header class="main-header">
+    <div class="container header-content">
+        <h1>Loja Uoou</h1>
+        <div class="header-actions">
+            <a href="{{ path('cart_index') }}" class="btn-cart">
+                🛒 Carrinho 
+                <span class="cart-count">
+                    {% if app.user %}
+                        ({{ app.user.carts|length }})
+                    {% else %}
+                        ({{ app.session.get('cart')|length }})
+                    {% endif %}
+                </span>
+            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="product/create" class="btn-add">Adicionar Produto</a>
+            {% endif %}
+            {% if app.user %}
+                <span style="color: #7f8c8d; font-size: 0.9rem;">Olá, {{ app.user.userIdentifier }}</span>
+                <a href="/logout" style="color: #e74c3c; text-decoration: none; font-weight: 500;">Sair</a>
+            {% else %}
+                <a href="/login" class="btn-add" style="background-color: #7f8c8d;">Entrar</a>
+                <a href="/register" style="color: #3498db; text-decoration: none;">Criar Conta</a>
+            {% endif %}
+            
+        </div>
+    </div>
+</header>
+<main class="container">
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    {% if product.imagePath %}
+                        <img src="{{ product.imagePath }}" alt="{{ product.name }}">
+                    {% endif %}
+                </div>
+
+                <div class="product-info">
+                    <h3 class="product-title">{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description|slice(0, 100) }}...</p>
+                    
+                    <div class="product-footer">
+                        <span class="product-price">R$ {{ product.price|number_format(2, ',', '.') }}</span>
+                        <span class="product-stock {% if product.estock <= 0 %}out-of-stock{% endif %}">
+                            Estoque: {{ product.estock }}
+                        </span>
+                    </div>
+                    <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn-buy">Adicionar ao Carrinho</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Nenhum produto encontrado.</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/visual.css') }}">
+{% endblock %}
+
+{% block body %}
+<header class="main-header">
+    <div class="container header-content">
+        <h1>Loja Uoou</h1>
+        <a href="/" class="btn-back">← Voltar</a>
+    </div>
+</header>
+    <main class="container">
+        <div class="product-grid">
+            {% for product in items %}
+                <div class="product-card">
+                    <div class="product-image">
+                        {% if product.product.imagePath %}
+                            <img src="{{ product.product.imagePath }}" alt="{{ product.product.name }}">
+                        {% endif %}
+                    </div>
+
+                    <div class="product-info">
+                        <h3 class="product-title">{{ product.product.name }}</h3>
+                        <p class="product-description">{{ product.product.description|slice(0, 100) }}...</p>
+        
+                        <div class="product-footer">
+                            <span class="product-price">R$ {{ product.product.price|number_format(2, ',', '.') }}</span>
+                                Quantidade: {{ product.quantity }}
+                        </div>
+                        <a href="{{ path('cart_remove', {'id': product.product.id}) }}" class="btn-cart">Remover do Carrinho</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>Nenhum produto encontrado.</p>
+            {% endfor %}
+        </div>
+        <div class="form-actions">
+            <a href="{{ path('cart_stripe_checkout') }}" class="btn-submit" style="text-decoration: none;">
+                Finalizar Compra no Stripe
+            </a>
+        </div>
+    </main>
+{% endblock %}
