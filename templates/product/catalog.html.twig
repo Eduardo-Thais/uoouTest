@@ -24,10 +24,10 @@
             {% endif %}
             {% if app.user %}
                 <span style="color: #7f8c8d; font-size: 0.9rem;">Olá, {{ app.user.userIdentifier }}</span>
-                <a href="/logout" style="color: #e74c3c; text-decoration: none; font-weight: 500;">Sair</a>
+                <a href="/logout" class="btn-exit" >Sair</a>
             {% else %}
-                <a href="/login" class="btn-add" style="background-color: #7f8c8d;">Entrar</a>
-                <a href="/register" style="color: #3498db; text-decoration: none;">Criar Conta</a>
+                <a href="/login" class="btn-add">Entrar</a>
+                <a href="/register" class="btn-add" id="btn-register">Criar Conta</a>
             {% endif %}
             
         </div>

@@ -1,34 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
+{% block title %}Entrar - Loja Uoou{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
-        </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
+<header class="main-header">
+    <div class="container header-content">
+        <h1>Loja Uoou</h1>
+        <a href="/" class="btn-back">← Voltar</a>
     </div>
+</header>
+<main class="container">
+    <div class="form-card">
+        <h2>Acessar Minha Conta</h2>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+        <form method="post">
+            {# Mensagens de Erro de Autenticação #}
+            {% if error %}
+                <div class="alert-error" style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 20px; font-size: 0.9rem;">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {# Status de Logado #}
+            {% if app.user %}
+                <div class="form-group" style="text-align: center; color: #27ae60;">
+                    Você já está logado como <strong>{{ app.user.userIdentifier }}</strong>.
+                    <br>
+                    <a href="{{ path('app_logout') }}" class="btn-link" style="color: #e74c3c;">Sair da conta</a>
+                </div>
+            {% else %}
+
+                <div class="form-group">
+                    <label for="inputEmail">E-mail</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="exemplo@uoou.com" autocomplete="email" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword">Senha</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Sua senha secreta" autocomplete="current-password" required>
+                </div>
+
+                {# Token CSRF para Segurança (Não remova!) #}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                
+
+                <div class="form-actions">
+                    <button class="btn-submit" type="submit">
+                        Entrar na Loja
+                    </button>
+                    
+                    <div style="margin-top: 15px;">
+                        <a href="{{ path('app_register') }}" class="btn-link">Ainda não tem conta? Cadastre-se</a>
+                    </div>
+                </div>
+
+            {% endif %}
+        </form>
+    </div>
+</main>
 {% endblock %}

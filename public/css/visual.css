@@ -11,6 +11,15 @@ body {
     padding: 0 20px;
 }
 
+#btn-register:hover {
+    background-color: #27ae60;
+}
+
+#btn-register {
+    background-color: #2ecc71;
+    transition: background-color 0.3s ease;
+}
+
 .main-header {
     background: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -224,4 +233,38 @@ body {
 
 .btn-cart:hover {
     background-color: #219150;
+}
+
+.btn-back {
+    background: #95a5a6;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-back:hover {
+    background: #7f8c8d;
+}
+
+.btn-exit {
+    background: #e74c3c;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-exit:hover {
+    background: #c0392b;
 }

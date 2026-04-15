@@ -1,19 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
+{% block title %}Criar Conta - Loja Uoou{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<header class="main-header">
+    <div class="container header-content">
+        <h1>Loja Uoou</h1>
+        <a href="/" class="btn-back">← Voltar</a>
+    </div>
+</header>
+<main class="container">
+    <div class="form-card">
+        <h2>Criar Nova Conta</h2>
 
-    {{ form_errors(registrationForm) }}
+        {# Exibe erros globais do formulário #}
+        <div class="form-errors">
+            {{ form_errors(registrationForm) }}
+        </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_start(registrationForm) }}
+            
+            <div class="form-group">
+                {{ form_label(registrationForm.email, 'E-mail') }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Seu melhor e-mail'}}) }}
+                <div class="error-text">{{ form_errors(registrationForm.email) }}</div>
+            </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword, 'Senha') }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Mínimo 6 caracteres'}}) }}
+                <div class="error-text">{{ form_errors(registrationForm.plainPassword) }}</div>
+            </div>
+
+            <div class="form-checkbox">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms, 'Eu aceito os termos e condições') }}
+                <div class="error-text">{{ form_errors(registrationForm.agreeTerms) }}</div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Finalizar Cadastro</button>
+                <div style="margin-top: 15px;">
+                    <a href="{{ path('app_login') }}" class="btn-link">Já possui uma conta? Entrar</a>
+                </div>
+            </div>
+
+        {{ form_end(registrationForm) }}
+    </div>
+</main>
 {% endblock %}
